@@ -1,5 +1,12 @@
 <?php 
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\PosController;
+
 //Codingan Tugas Pertemuan 2 Soal No.2
 Route::get('/about', function () {
     return 'Selamat datang di Pos Barokah Mart! Kami menyediakan berbagai kebutuhan 
@@ -7,9 +14,10 @@ Route::get('/about', function () {
 });
 
 //Codingan Tugas Pertemuan 2 Soal No.3
-Route::get('/dashboard', function () {
-    return 'Selamat datang di Dashboard Admin Pos Barokah Mart!';
-});
+// Route::get('/dashboard', function () {
+    //return 'Selamat datang di Dashboard Admin Pos Barokah Mart!';
+//});
+
 Route::post('/customers', function () {
     return 'Data pelanggan Pos Barokah Mart!';
 });
@@ -41,3 +49,24 @@ Route::middleware(['auth', 'role:admin,kasir'])->group(function () {
     Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
     Route::post('/pos', [PosController::class, 'store'])->name('pos.store');
 });
+
+// Latihan diskusi pertemuan 5
+Route::get('/index', function () {
+    $posts = [
+        (object)['title' => 'Belajar blade bro', 'published' => true],
+        (object)['title' => 'Saya tidak bisa kasih tips', 'published' => false],
+        (object)['title' => 'Tolong saya belajar blade', 'published' => true],
+        (object)['title' => 'Post Terbaru', 'published' => true, 'created_at' => now()],
+    ];
+
+    return view('posts.index', compact('posts'));
+});
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware('auth')
+    ->name('dashboard');
+
+//Tugas Pertemuan 5 Soal No.2
+Route::get('/pos/history', function () {
+    return view('pos.history');
+})->name('pos.history');
