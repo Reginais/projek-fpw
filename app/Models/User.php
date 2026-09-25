@@ -29,4 +29,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    //Tugas Pertemuan 6 Soal No.3
+    // protected $fillable = [
+        // 'name',
+        //'email',
+        // 'password',
+    //];
 }
