@@ -43,6 +43,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 'sales'])->name('report.sales');
     //Tugas Pertemuan 4 Soal No.1
     Route::resource('users', UserController::class);
+    // Praktikum Pertemuan 7
+    Route::resource('categories', CategoryController::class);
 });
 
 Route::middleware(['auth', 'role:admin,kasir'])->group(function () {
