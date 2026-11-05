@@ -15,7 +15,10 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        //
+        // Praktikum Pertemuan 8
+        $products = Product::with('category')->latest()->paginate(10);
+        
+        return view('master-data.product.index', compact('products'));
     }
 
 
