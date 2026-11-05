@@ -10,7 +10,6 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Ganti x-card dengan div putih standar -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 @if (session('success'))
                     <div class="mb-4 p-3 bg-green-100 text-green-700 rounded-md text-sm">
@@ -31,7 +30,6 @@
                     </thead>
                     <tbody class="divide-y divide-gray-100">
                         @forelse ($products as $product)
-                            <!-- Warna baris conditional dihapus agar bersih seperti contoh -->
                             <tr>
                                 <td class="px-4 py-2 text-sm">{{ $product->code }}</td>
                                 <td class="px-4 py-2 text-sm">{{ $product->name }}</td>
