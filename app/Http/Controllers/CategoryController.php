@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-// Tugas Pertemuan 9 Soal No.1
-use App\Http\Requests\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -57,9 +55,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        // Tugas Pertemuan 9 Soal No.1
-        $categories = Category::orderBy('name')->get();
-        return view('master-data.category.edit', compact('category', 'categories'));
+        //
     }
 
     /**
@@ -67,9 +63,7 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        // Tugas Pertemuan 9 Soal No.1
-        $category->update($request->validated());
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil diperbarui.');
+        //
     }
 
     /**
@@ -77,14 +71,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        // Tugas Pertemuan 9 Soal No.2
-        if ($category->products()->exists()) {
-            return redirect()->route('categories.index')
-                ->with('error', 'Kategori "' . $category->name . '" tidak dapat dihapus karena masih memiliki produk.');
-        }
-
-        // Tugas Pertemuan 9 Soal No.1
-        $category->delete();
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil dihapus.');
+        //
     }
 }

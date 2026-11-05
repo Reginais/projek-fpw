@@ -28,11 +28,6 @@
                     </div>
                 @endif
 
-                @if (session('error'))
-                    <div class="mb-4 p-3 bg-red-100 text-red-700 rounded-md text-sm">
-                        {{ session('error') }}
-                    </div>
-                @endif
 
                 @forelse ($categories as $category)
 
@@ -45,19 +40,6 @@
                             <p class="text-sm text-gray-600">
                                 {{ $category->description }}
                             </p>
-                        </div>
-
-                        {{-- Praktikum Pertemuan 9 (Latihan 1): tombol Ubah dan Hapus --}}
-                        <div class="flex items-center gap-3 text-sm">
-                            <a href="{{ route('categories.edit', $category) }}" class="text-indigo-600">Ubah</a>
-
-                            <form action="{{ route('categories.destroy', $category) }}" method="POST"
-                                onsubmit="return confirm(@js('Yakin ingin menghapus kategori ' . $category->name . '?'))"
-                                class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-600">Hapus</button>
-                            </form>
                         </div>
                     </div>
 

@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
-// Tugas Pertemuan 9 Soal No.3
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
@@ -27,7 +25,4 @@ class Product extends Model
             get: fn () => 'Rp ' . number_format($this->price, 0, ',', '.'),
         );
     }
-
-    // Tugas Pertemuan 9 Soal No.3
-    use SoftDeletes;
 }

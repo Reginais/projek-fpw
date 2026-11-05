@@ -7,8 +7,6 @@ use App\Models\Category;
 use App\Models\Product;
 // Praktikum Pertemuan 7
 use App\Http\Requests\StoreProductRequest;
-// Praktikum Pertemuan 9
-use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
@@ -17,37 +15,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        // Praktikum Pertemuan 8
-        /* $products = Product::with('category')->latest()->paginate(10);
-        return view('master-data.product.index', compact('products'));*/
-
-        // Praktikum Pertemuan 10
-        $query = Product::with('category');
-        if ($request->filled('search')) {
-            $keyword = $request->search;
-            $query->where(function ($q) use ($keyword) {
-                $q->where('name', 'like', "%{$keyword}%")
-                ->orWhere('code', 'like', "%{$keyword}%");
-            });
-        }
-        if ($request->filled('category_id')) {
-            $query->where('category_id', $request->category_id);
-        }
-
-        // Tugas Pertemuan 10 Soal No.1
-        if ($request->stock_status === 'habis') {
-            $query->where('stock', 0);
-        } elseif ($request->stock_status === 'menipis') {
-            $query->where('stock', '>', 0)->where('stock', '<=', 10);
-        }
-        
-        // Tugas Pertemuan 10 Soal No.2
-        $allowed = [10, 25, 50];
-        $perPage = in_array((int) $request->per_page, $allowed) ? (int) $request->per_page : 10;
-        
-        $products = $query->latest()->paginate($perPage)->withQueryString();
-        $categories = Category::orderBy('name')->get();
-        return view('master-data.product.index', compact('products', 'categories'));
+        //
     }
 
 
@@ -76,18 +44,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-            // Praktikum Pertemuan 11
-            $product->load(['transactionDetails.transaction']);
-            
-            $totalTerjual = $product->transactionDetails->sum('qty');
- 
-            $riwayat = $product->transactionDetails()
-                ->with('transaction')
-                ->latest()
-                ->take(10)
-                ->get();
-
-        return view('master-data.product.show', compact('product', 'totalTerjual', 'riwayat'));
+        //
     }
 
     /**
@@ -95,9 +52,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        // Praktikum Pertemuan 9
-        $categories = Category::orderBy('name')->get();
-        return view('master-data.product.edit', compact('product', 'categories'));
+        //
     }
 
     /**
@@ -105,9 +60,7 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        // Praktikum Pertemuan 9
-        $product->update($request->validated());
-        return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui.');
+        //
     }
 
     /**
@@ -115,8 +68,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        // Praktikum Pertemuan 9
-        $product->delete();
-        return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus.');
+        // 
     }
 }
