@@ -21,7 +21,6 @@
                         <textarea name="description" rows="3"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ old('description') }}</textarea>
                     </div>
-
                     <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md">
                         Simpan
                     </button>

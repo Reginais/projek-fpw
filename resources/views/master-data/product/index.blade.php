@@ -10,13 +10,12 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+            <x-card>
                 @if (session('success'))
                     <div class="mb-4 p-3 bg-green-100 text-green-700 rounded-md text-sm">
                         {{ session('success') }}
                     </div>
                 @endif
-
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
@@ -30,7 +29,7 @@
                     </thead>
                     <tbody class="divide-y divide-gray-100">
                         @forelse ($products as $product)
-                            <tr>
+                            <tr class="@if ($product->stock == 0) bg-red-50 @elseif ($product->stock <= 10) bg-yellow-50 @endif">
                                 <td class="px-4 py-2 text-sm">{{ $product->code }}</td>
                                 <td class="px-4 py-2 text-sm">{{ $product->name }}</td>
                                 <td class="px-4 py-2 text-sm">{{ $product->category->name }}</td>
@@ -39,9 +38,21 @@
                                 </td>
                                 <td class="px-4 py-2 text-sm text-center font-semibold">
                                     {{ $product->stock }}
+                                    @if ($product->stock == 0)
+                                        <span class="text-red-600 text-xs block">Habis</span>
+                                    @elseif ($product->stock <= 10)
+                                        <span class="text-yellow-600 text-xs block">Menipis</span>
+                                    @endif
                                 </td>
                                 <td class="px-4 py-2 text-sm text-center space-x-2">
-                                    <a href="{{ route('products.edit', $product) }}" class="text-indigo-600">Ubah</a>
+                                    <a href="{{ route('products.edit', $product) }}" class="text-indigo-600">Ubah</a>                                    
+                                    <form action="{{ route('products.destroy', $product) }}" method="POST"
+                                        onsubmit="return confirm(@js('Yakin ingin menghapus produk ' . $product->name . '?'))"
+                                        class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600">Hapus</button>
+                                    </form>
                                 </td>
                             </tr>
                         @empty
@@ -53,11 +64,10 @@
                         @endforelse
                     </tbody>
                 </table>
-
                 <div class="mt-4">
                     {{ $products->links() }}
                 </div>
-            </div>
+            </x-card>
         </div>
     </div>
 </x-app-layout>

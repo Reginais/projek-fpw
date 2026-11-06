@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Product;
 // Praktikum Pertemuan 7
 use App\Http\Requests\StoreProductRequest;
+// Praktikum Pertemuan 9
+use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
@@ -55,7 +57,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        // Praktikum Pertemuan 9
+        $categories = Category::orderBy('name')->get();
+        return view('master-data.product.edit', compact('product', 'categories'));
     }
 
     /**
@@ -63,7 +67,9 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        // Praktikum Pertemuan 9
+        $product->update($request->validated());
+        return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui.');
     }
 
     /**
@@ -71,6 +77,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        // Praktikum Pertemuan 9
+        $product->delete();
+        return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus.');
     }
 }
