@@ -16,6 +16,33 @@
                         {{ session('success') }}
                     </div>
                 @endif
+                <form method="GET" action="{{ route('products.index') }}" class="flex gap-3 mb-4">
+                    <input type="text" name="search" value="{{ request('search') }}"
+                        placeholder="Cari nama atau kode produk..."
+                        class="flex-1 rounded-md border-gray-300 shadow-sm">
+                    <select name="category_id" class="rounded-md border-gray-300">
+                        <option value="">Semua Kategori</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" @selected(request('category_id') == $category->id)>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <select name="stock_status" class="rounded-md border-gray-300">
+                        <option value="">Semua Stok</option>
+                        <option value="menipis" @selected(request('stock_status') == 'menipis')>Menipis</option>
+                        <option value="habis" @selected(request('stock_status') == 'habis')>Habis</option>
+                    </select>
+                    <select name="per_page" class="rounded-md border-gray-300">
+                        @foreach ([10, 25, 50] as $n)
+                            <option value="{{ $n }}" @selected((int) request('per_page', 10) === $n)>
+                                {{ $n }} / halaman
+                            </option>
+                        @endforeach
+                    </select>
+		            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md">Cari</button>
+                        <a href="{{ route('products.index') }}" class="px-4 py-2 text-gray-500">Reset</a>
+                </form>
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
