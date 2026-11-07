@@ -5,6 +5,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
+// Tugas Praktikum 12
+use App\Http\Controllers\PosController;
 
 //Codingan Tugas Pertemuan 2 Soal No.2
 Route::get('/about', function () {
@@ -49,6 +51,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:admin,kasir'])->group(function () {
     Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
     Route::post('/pos', [PosController::class, 'store'])->name('pos.store');
+    // Tugas Praktikum 12
+    Route::get('/pos/{transaction}/struk', [PosController::class,
+    'struk'])->name('pos.struk');
 });
 
 // Latihan diskusi pertemuan 5
