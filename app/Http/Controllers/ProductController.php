@@ -76,7 +76,18 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        // Praktikum Pertemuan 11
+            $product->load(['transactionDetails.transaction']);
+            
+            $totalTerjual = $product->transactionDetails->sum('qty');
+ 
+            $riwayat = $product->transactionDetails()
+                ->with('transaction')
+                ->latest()
+                ->take(10)
+                ->get();
+
+        return view('master-data.product.show', compact('product', 'totalTerjual', 'riwayat'));
     }
 
     /**
